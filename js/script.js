@@ -20,7 +20,7 @@ const menuLinks = document.querySelectorAll(".menu a");
 // MOBILE MENU
 // ==========================================
 
-menuToggle.addEventListener("click", () => {
+if (menuToggle) menuToggle.addEventListener("click", () => {
 
     menu.classList.toggle("show-menu");
 
