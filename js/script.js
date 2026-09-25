@@ -1,477 +1,64 @@
-/*==================================================
-GAME KINGDOMS
-Premium Website Script
-==================================================*/
-
-// ==========================================
-// SELECT ELEMENTS
-// ==========================================
-
-const navbar = document.querySelector("header");
-
-const menu = document.querySelector(".menu");
-
-const menuToggle = document.querySelector(".menu-toggle");
-
-const menuLinks = document.querySelectorAll(".menu a");
-
-
-// ==========================================
-// MOBILE MENU
-// ==========================================
-
-if (menuToggle) menuToggle.addEventListener("click", () => {
-
-    menu.classList.toggle("show-menu");
-
-    const icon = menuToggle.querySelector("i");
-
-    if (menu.classList.contains("show-menu")) {
-
-        icon.classList.remove("fa-bars");
-
-        icon.classList.add("fa-xmark");
-
-    }
-
-    else{
-
-        icon.classList.remove("fa-xmark");
-
-        icon.classList.add("fa-bars");
-
-    }
-
-});
-
-
-// ==========================================
-// CLOSE MENU AFTER CLICK
-// ==========================================
-
-menuLinks.forEach(link=>{
-
-    link.addEventListener("click",()=>{
-
-        menu.classList.remove("show-menu");
-
-        const icon = menuToggle.querySelector("i");
-
-        icon.classList.remove("fa-xmark");
-
-        icon.classList.add("fa-bars");
-
-    });
-
-});
-
-
-// ==========================================
-// STICKY NAVBAR EFFECT
-// ==========================================
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>80){
-
-        navbar.classList.add("sticky");
-
-    }
-
-    else{
-
-        navbar.classList.remove("sticky");
-
-    }
-
-});
-
-
-// ==========================================
-// ACTIVE MENU LINK
-// ==========================================
-
-const sections = document.querySelectorAll("section");
-
-window.addEventListener("scroll",()=>{
-
-    let current = "";
-
-    sections.forEach(section=>{
-
-        const sectionTop = section.offsetTop-150;
-
-        if(window.scrollY>=sectionTop){
-
-            current = section.getAttribute("id");
-
-        }
-
-    });
-
-    menuLinks.forEach(link=>{
-
-        link.classList.remove("active");
-
-        if(link.getAttribute("href")==="#" + current){
-
-            link.classList.add("active");
-
-        }
-
-    });
-
-});
-
-
-// ==========================================
-// HERO IMAGE FLOAT
-// ==========================================
-
-const heroImage = document.querySelector(".hero-right img");
-
-let direction = 1;
-
-setInterval(()=>{
-
-    let current = parseFloat(heroImage.dataset.pos || 0);
-
-    current += direction;
-
-    if(current>10){
-
-        direction = -1;
-
-    }
-
-    if(current<-10){
-
-        direction = 1;
-
-    }
-
-    heroImage.style.transform = `translateY(${current}px)`;
-
-    heroImage.dataset.pos = current;
-
-},80);
-/*==================================================
-SCROLL REVEAL ANIMATION
-==================================================*/
-
-const revealElements = document.querySelectorAll(
-    ".section-title, .about-card, .game-card, .feature-box, .mission-card, .contact-form, .contact-info"
-);
-
-const revealOnScroll = () => {
-
-    const windowHeight = window.innerHeight;
-
-    revealElements.forEach(element => {
-
-        const elementTop = element.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 100) {
-
-            element.classList.add("reveal");
-
-        }
-
-    });
-
-};
-
-window.addEventListener("scroll", revealOnScroll);
-
-revealOnScroll();
-
-
-/*==================================================
-ANIMATED COUNTERS
-==================================================*/
-
-const counters = document.querySelectorAll(".hero-stats h2");
-
-const startCounter = () => {
-
-    counters.forEach(counter => {
-
-        let target = parseInt(counter.innerText);
-
-        if (isNaN(target)) return;
-
-        let count = 0;
-
-        let speed = target / 80;
-
-        const updateCounter = () => {
-
-            count += speed;
-
-            if (count < target) {
-
-                counter.innerText = Math.floor(count) + "+";
-
-                requestAnimationFrame(updateCounter);
-
-            } else {
-
-                counter.innerText = target + "+";
-
-            }
-
-        };
-
-        updateCounter();
-
-    });
-
-};
-
-startCounter();
-
-
-/*==================================================
-BUTTON RIPPLE EFFECT
-==================================================*/
-
-const buttons = document.querySelectorAll(
-    ".primary-btn,.secondary-btn,.contact-form button"
-);
-
-buttons.forEach(button => {
-
-    button.addEventListener("click", function (e) {
-
-        const ripple = document.createElement("span");
-
-        ripple.className = "ripple";
-
-        const rect = this.getBoundingClientRect();
-
-        ripple.style.left = (e.clientX - rect.left) + "px";
-
-        ripple.style.top = (e.clientY - rect.top) + "px";
-
-        this.appendChild(ripple);
-
-        setTimeout(() => {
-
-            ripple.remove();
-
-        }, 600);
-
-    });
-
-});
-
-
-/*==================================================
-CONTACT FORM VALIDATION
-==================================================*/
-
-const contactForm = document.querySelector(".contact-form form");
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const name = this.querySelector('input[type="text"]');
-
-        const email = this.querySelector('input[type="email"]');
-
-        const message = this.querySelector("textarea");
-
-        if (
-            name.value.trim() === "" ||
-            email.value.trim() === "" ||
-            message.value.trim() === ""
-        ) {
-
-            alert("Please complete all required fields.");
-
-            return;
-
-        }
-
-        alert("Thank you! Your message has been recorded.");
-
-        this.reset();
-
-    });
-
+const header=document.getElementById("site-header");
+const menu=document.querySelector(".menu");
+const menuToggle=document.querySelector(".menu-toggle");
+
+if(menuToggle){
+  menuToggle.addEventListener("click",()=>{
+    const open=menu.classList.toggle("show");
+    menuToggle.setAttribute("aria-expanded",open?"true":"false");
+    const icon=menuToggle.querySelector("i");
+    if(icon){icon.classList.toggle("fa-bars",!open);icon.classList.toggle("fa-xmark",open);}
+  });
 }
 
-
-/*==================================================
-SMOOTH SCROLL
-==================================================*/
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function (e) {
-
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute("href"));
-
-        if (target) {
-
-            target.scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-        }
-
-    });
-
-});
-/*==================================================
-BACK TO TOP BUTTON
-==================================================*/
-
-const backToTop = document.createElement("button");
-
-backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
-
-backToTop.className = "back-to-top";
-
-document.body.appendChild(backToTop);
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 500) {
-
-        backToTop.classList.add("show-top");
-
-    } else {
-
-        backToTop.classList.remove("show-top");
-
+document.querySelectorAll(".menu a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    if(menu){menu.classList.remove("show");}
+    if(menuToggle){
+      menuToggle.setAttribute("aria-expanded","false");
+      const icon=menuToggle.querySelector("i");
+      if(icon){icon.classList.add("fa-bars");icon.classList.remove("fa-xmark");}
     }
-
+  });
 });
 
-backToTop.addEventListener("click", () => {
+window.addEventListener("scroll",()=>{
+  if(header) header.classList.toggle("scrolled",window.scrollY>40);
+});
 
-    window.scrollTo({
+const sections=[...document.querySelectorAll("main section[id]")];
+const navLinks=[...document.querySelectorAll(".menu a[href^='#']")];
+function setActive(){
+  if(!sections.length)return;
+  let current=sections[0].id;
+  sections.forEach(section=>{
+    if(window.scrollY>=section.offsetTop-180) current=section.id;
+  });
+  navLinks.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+current));
+}
+window.addEventListener("scroll",setActive,{passive:true});
+setActive();
 
-        top: 0,
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener("click",e=>{
+    const target=document.querySelector(anchor.getAttribute("href"));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});}
+  });
+});
 
-        behavior: "smooth"
-
+const reveal=document.querySelectorAll(".glass-panel,.game-card,.capability,.policy-section,.policy-intro,.policy-contact-card");
+if("IntersectionObserver" in window){
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add("in-view");observer.unobserve(entry.target);}
     });
+  },{threshold:.08});
+  reveal.forEach(el=>observer.observe(el));
+}
 
+document.querySelectorAll(".policy-nav a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    document.querySelectorAll(".policy-nav a").forEach(a=>a.classList.remove("active"));
+    link.classList.add("active");
+  });
 });
-
-
-/*==================================================
-NAVBAR HIDE / SHOW
-==================================================*/
-
-let lastScroll = 0;
-
-window.addEventListener("scroll", () => {
-
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > lastScroll && currentScroll > 120) {
-
-        navbar.style.transform = "translateY(-100%)";
-
-    } else {
-
-        navbar.style.transform = "translateY(0)";
-
-    }
-
-    lastScroll = currentScroll;
-
-});
-
-
-/*==================================================
-PARALLAX HERO
-==================================================*/
-
-window.addEventListener("scroll", () => {
-
-    const scrolled = window.pageYOffset;
-
-    const hero = document.querySelector(".hero");
-
-    if (hero) {
-
-        hero.style.backgroundPositionY = scrolled * 0.3 + "px";
-
-    }
-
-});
-
-
-/*==================================================
-GAME CARD TILT EFFECT
-==================================================*/
-
-const cards = document.querySelectorAll(".game-card");
-
-cards.forEach(card => {
-
-    card.addEventListener("mousemove", e => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-
-        const y = e.clientY - rect.top;
-
-        const rotateY = ((x / rect.width) - 0.5) * 12;
-
-        const rotateX = ((y / rect.height) - 0.5) * -12;
-
-        card.style.transform =
-            `perspective(1000px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateY(-10px)`;
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform =
-            "perspective(1000px) rotateX(0) rotateY(0)";
-
-    });
-
-});
-
-
-/*==================================================
-PRELOADER
-==================================================*/
-
-window.addEventListener("load", () => {
-
-    document.body.classList.add("loaded");
-
-});
-
-
-/*==================================================
-CONSOLE MESSAGE
-==================================================*/
-
-console.log(
-"%cGAME KINGDOMS SMC-PRIVATE LIMITED",
-"color:#00d4ff;font-size:22px;font-weight:bold;"
-);
-
-console.log(
-"%cWebsite Developed Successfully",
-"color:#7a5cff;font-size:15px;"
-);
