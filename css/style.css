@@ -1782,3 +1782,27 @@ LEGAL IDENTITY + PRIVACY POLICY
         padding:22px;
     }
 }
+
+.privacy-page{min-height:100vh;padding-top:90px}
+.privacy-policy{background:
+    radial-gradient(circle at 15% 15%,rgba(0,212,255,.10),transparent 32%),
+    radial-gradient(circle at 85% 80%,rgba(122,92,255,.12),transparent 35%),
+    var(--dark);}
+.privacy-wrapper{width:92%;max-width:1000px;margin:auto}
+.privacy-card{background:linear-gradient(145deg,rgba(18,35,61,.97),rgba(10,24,43,.97));
+    border:1px solid rgba(0,212,255,.18);border-radius:24px;padding:50px;
+    box-shadow:0 25px 70px rgba(0,0,0,.28)}
+.privacy-card h3{color:var(--primary);font-size:23px;margin:32px 0 12px}
+.privacy-card p{color:var(--text-light);line-height:1.95;margin-bottom:12px}
+.privacy-updated{display:inline-block;padding:9px 15px;border-radius:30px;
+    background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15)}
+.privacy-contact{margin-top:18px;padding:22px;background:rgba(0,0,0,.18);
+    border-radius:15px;color:var(--text-light);line-height:1.9;border-left:3px solid var(--primary)}
+.privacy-contact a{color:var(--primary)}
+.company-details{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(122,92,255,.10));
+    border:1px solid rgba(0,212,255,.18);border-radius:18px;padding:28px;margin:25px 0 30px}
+.company-details h4{font-size:21px;color:var(--primary);margin-bottom:18px}
+.company-details p{margin-bottom:10px;line-height:1.75}
+.company-details a,.contact-item a{color:var(--primary)}
+.footer-legal{color:var(--text-light);line-height:1.9;margin-top:15px;font-size:14px}
+@media(max-width:768px){.privacy-card{padding:28px 22px}.company-details{padding:22px}}
